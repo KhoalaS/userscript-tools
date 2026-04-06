@@ -1,5 +1,5 @@
 {
-  "name": "us-tools",
+  "name": "@cryptid02/us-tools",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/us-tools.mjs",
