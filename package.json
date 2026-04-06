@@ -1,7 +1,7 @@
 {
   "name": "@cryptid02/us-tools",
   "version": "1.0.0",
-  "description": "",
+  "description": "Userscript utilities.",
   "main": "./dist/us-tools.mjs",
   "module": "./dist/us-tools.mjs",
   "types": "./dist/index.d.ts",
