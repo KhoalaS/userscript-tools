@@ -1,4 +1,4 @@
-import { assertNonNullable } from "../misc/AssertionsFunctions";
+import { assertNonNullable } from "../misc/AssertionFunctions";
 import { Result } from "../misc/Result";
 import { StorageLayer } from "./StorageLayer";
 
