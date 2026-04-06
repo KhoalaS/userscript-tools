@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { IndexedDBStorageLayer } from "./IndexedDBStorageLayer";
-import { StorageLayer } from "./StorageLayer";
 
 describe("IndexedDBStorageLayer", () => {
     let idb: IndexedDBStorageLayer<"store-1">;
@@ -85,7 +84,7 @@ describe("IndexedDBStorageLayer", () => {
         expect(deleteResult.ok).toBe(true);
 
         getResult = await idb.get("id-0", "store-1");
-        console.log(getResult)
+        console.log(getResult);
         expect(getResult.ok).toBe(false);
     });
 });
