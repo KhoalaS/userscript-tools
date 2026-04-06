@@ -1,0 +1,23 @@
+{
+  "name": "us-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.30.1",
+  "devDependencies": {
+    "@types/jsdom": "^28.0.1",
+    "@types/node": "^25.5.2",
+    "fake-indexeddb": "^6.2.5",
+    "happy-dom": "^20.8.9",
+    "jsdom": "^29.0.1",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.5",
+    "vitest": "^4.1.2"
+  }
+}
