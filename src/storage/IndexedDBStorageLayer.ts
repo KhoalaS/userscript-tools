@@ -2,8 +2,8 @@ import { assertNonNullable } from "../misc/AssertionsFunctions";
 import { Result } from "../misc/Result";
 import { StorageLayer } from "./StorageLayer";
 
-export type IDBStore = {
-    name: string;
+export type IDBStore<N extends string> = {
+    name: N;
     keypath: string;
     indices: {
         name: string;
@@ -16,17 +16,17 @@ export type IDBStoreUpdate = {
     updateFunction: (transaction: IDBTransaction) => void;
 };
 
-export class IndexedDBStorageLayer implements StorageLayer {
+export class IndexedDBStorageLayer<N extends string> implements StorageLayer {
     private database: IDBDatabase | undefined;
 
     constructor(
         private readonly databaseName: string,
         private readonly window: Window,
-        private readonly stores: IDBStore[],
+        private readonly stores: IDBStore<N>[],
         private readonly updates?: IDBStoreUpdate[],
         private version: number = 1,
     ) {}
-    get<T>(key: string, storeName: string): Promise<Result<T>> {
+    get<T>(key: string, storeName: N): Promise<Result<T>> {
         return new Promise((resolve) => {
             const transaction = this.createTransaction(storeName, "readonly");
             const objectStore = transaction.objectStore(storeName);
@@ -122,7 +122,7 @@ export class IndexedDBStorageLayer implements StorageLayer {
     }
 
     private createTransaction(
-        storeName: string,
+        storeName: N,
         mode: "readwrite" | "readonly" | "versionchange",
     ) {
         assertNonNullable(this.database);
@@ -131,15 +131,11 @@ export class IndexedDBStorageLayer implements StorageLayer {
         return transaction;
     }
 
-    add<T>(key: string, value: T, storeName: string): Promise<Result<unknown>> {
+    add<T>(key: string, value: T, storeName: N): Promise<Result<unknown>> {
         return this.update(key, value, storeName);
     }
 
-    update<T>(
-        key: string,
-        value: T,
-        storeName: string,
-    ): Promise<Result<unknown>> {
+    update<T>(key: string, value: T, storeName: N): Promise<Result<unknown>> {
         return new Promise((resolve) => {
             const transaction = this.createTransaction(storeName, "readwrite");
             const objectStore = transaction.objectStore(storeName);
@@ -163,7 +159,7 @@ export class IndexedDBStorageLayer implements StorageLayer {
         });
     }
 
-    delete(key: string, storeName: string): Promise<Result<unknown>> {
+    delete(key: string, storeName: N): Promise<Result<unknown>> {
         return new Promise((resolve) => {
             const transaction = this.createTransaction(storeName, "readwrite");
             const objectStore = transaction.objectStore(storeName);

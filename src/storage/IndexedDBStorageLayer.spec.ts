@@ -3,7 +3,7 @@ import { IndexedDBStorageLayer } from "./IndexedDBStorageLayer";
 import { StorageLayer } from "./StorageLayer";
 
 describe("IndexedDBStorageLayer", () => {
-    let idb: IndexedDBStorageLayer;
+    let idb: IndexedDBStorageLayer<"store-1">;
     beforeEach(async () => {
         idb = new IndexedDBStorageLayer("vitest", window, [
             {
