@@ -20,6 +20,11 @@ export class ElementBuilder<K extends keyof HTMLElementTagNameMap> {
         return this;
     }
 
+    addAttribute(attribute: string, value: string) {
+        this._element.setAttribute(attribute, value);
+        return this;
+    }
+
     build() {
         return this._element;
     }
