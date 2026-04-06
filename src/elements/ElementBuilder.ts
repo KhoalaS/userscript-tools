@@ -12,6 +12,7 @@ export class ElementBuilder<K extends keyof HTMLElementTagNameMap> {
 
     addInnerText(content: string) {
         this._element.innerText += content;
+        return this;
     }
 
     build() {
