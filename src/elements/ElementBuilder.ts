@@ -15,6 +15,11 @@ export class ElementBuilder<K extends keyof HTMLElementTagNameMap> {
         return this;
     }
 
+    addStyle(modify: (style: CSSStyleDeclaration) => void) {
+        modify(this._element.style);
+        return this;
+    }
+
     build() {
         return this._element;
     }
