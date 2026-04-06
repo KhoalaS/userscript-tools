@@ -42,16 +42,16 @@ export class SPARouter {
         for (const route of this.routes.values()) {
             if (route.prefix && path.startsWith(route.path)) {
                 route.callback(path);
-                return;
+                continue;
             } else if (route.regex) {
                 const match = route.path.exec(path);
                 if (match) {
                     route.callback(path, ...match);
-                    return;
+                    continue;
                 }
             } else if (route.path === path) {
                 route.callback(path);
-                return;
+                continue;
             }
         }
     }
