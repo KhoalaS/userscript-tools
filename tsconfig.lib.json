@@ -6,6 +6,7 @@
         "lib": ["DOM", "DOM.Iterable", "ES2022"],
         "target": "es2022",
         "composite": true,
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "tsBuildInfoFile": "node_modules/tsconfig.lib.tsbuildinfo"
     }
 }
