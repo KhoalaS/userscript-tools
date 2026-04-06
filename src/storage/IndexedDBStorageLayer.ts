@@ -33,10 +33,20 @@ export class IndexedDBStorageLayer<N extends string> implements StorageLayer {
 
             const getRequest: IDBRequest<T> = objectStore.get(key);
             getRequest.onsuccess = () => {
-                resolve({
-                    ok: true,
-                    value: getRequest.result,
-                });
+                const value = getRequest.result;
+                if (value == null) {
+                    resolve({
+                        ok: false,
+                        err: new Error(
+                            `value with id ${key} from store ${storeName} was nullish or does not exist`,
+                        ),
+                    });
+                } else {
+                    resolve({
+                        ok: true,
+                        value: getRequest.result,
+                    });
+                }
             };
 
             getRequest.onerror = () => {

@@ -57,4 +57,35 @@ describe("IndexedDBStorageLayer", () => {
             count: 0,
         });
     });
+
+    it("should delete values from an objectstore", async () => {
+        const addResult = await idb.add(
+            "id-0",
+            {
+                id: "id-0",
+                count: 0,
+            },
+            "store-1",
+        );
+
+        expect(addResult.ok).toBe(true);
+
+        let getResult = await idb.get("id-0", "store-1");
+        expect(getResult.ok).toBe(true);
+        if (!getResult.ok) {
+            throw new Error("an abnormal test situation has occured");
+        }
+
+        expect(getResult.value).toEqual({
+            id: "id-0",
+            count: 0,
+        });
+
+        const deleteResult = await idb.delete("id-0", "store-1");
+        expect(deleteResult.ok).toBe(true);
+
+        getResult = await idb.get("id-0", "store-1");
+        console.log(getResult)
+        expect(getResult.ok).toBe(false);
+    });
 });
