@@ -30,26 +30,34 @@ export class SPARouter {
         }
 
         navigation.addEventListener("navigate", (event) => {
-            console.log(event);
             const parsedUrl = URL.parse(event.destination.url);
             if (!parsedUrl) return;
 
             const path = parsedUrl.pathname;
-            for (const route of this.routes.values()) {
-                if (route.prefix && path.startsWith(route.path)) {
-                    route.callback(path);
-                    return;
-                } else if (route.regex) {
-                    const match = route.path.exec(path);
-                    if (match) {
-                        route.callback(path, ...match);
-                        return;
-                    }
-                } else if (route.path === path) {
-                    route.callback(path);
+            this.navigateHandler(path);
+        });
+    }
+
+    private navigateHandler(path: string) {
+        for (const route of this.routes.values()) {
+            if (route.prefix && path.startsWith(route.path)) {
+                route.callback(path);
+                return;
+            } else if (route.regex) {
+                const match = route.path.exec(path);
+                if (match) {
+                    route.callback(path, ...match);
                     return;
                 }
+            } else if (route.path === path) {
+                route.callback(path);
+                return;
             }
-        });
+        }
+    }
+
+    invokeHandlerOnCurrentUrl() {
+        const path = window.location.pathname;
+        this.navigateHandler(path);
     }
 }
