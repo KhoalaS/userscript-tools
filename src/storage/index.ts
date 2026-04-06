@@ -1,4 +1,13 @@
 import type { StorageLayer } from "./StorageLayer";
-import { IndexedDBStorageLayer } from "./IndexedDBStorageLayer";
+import {
+    type IDBStore,
+    type IDBStoreUpdate,
+    IndexedDBStorageLayer,
+} from "./IndexedDBStorageLayer";
 
-export { type StorageLayer, IndexedDBStorageLayer };
+export {
+    type StorageLayer,
+    type IDBStore,
+    type IDBStoreUpdate,
+    IndexedDBStorageLayer,
+};
