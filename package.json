@@ -2,9 +2,12 @@
   "name": "us-tools",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "./dist/us-tools.mjs",
+  "module": "./dist/us-tools.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "build": "vite build && tsc -p tsconfig.lib.json --emitDeclarationOnly true"
   },
   "keywords": [],
   "author": "",

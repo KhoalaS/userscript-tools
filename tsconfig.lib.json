@@ -1,9 +1,11 @@
 {
-    "include": ["src/**/*.ts"],
+    "include": ["index.ts", "src/**/*.ts"],
+    "exclude": ["src/**/*.spec.ts"],
     "compilerOptions": {
         "strict": true,
         "lib": ["DOM", "DOM.Iterable", "ES2022"],
         "target": "es2022",
-        "composite": true
+        "composite": true,
+        "outDir": "./dist"
     }
 }

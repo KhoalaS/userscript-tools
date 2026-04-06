@@ -3,8 +3,9 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
     build: {
+        emptyOutDir: true,
         lib: {
-            entry: "./src/index.ts",
+            entry: "./index.ts",
             formats: ["es"],
         },
     },
