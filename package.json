@@ -9,6 +9,11 @@
     "test": "vitest run",
     "build": "vite build && tsc -p tsconfig.lib.json --emitDeclarationOnly true"
   },
+  "files": [
+    "dist",
+    "src",
+    "index.ts"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
