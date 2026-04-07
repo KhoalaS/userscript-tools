@@ -162,15 +162,13 @@ export class IndexedDBStorageLayer<S extends IDBStoreType> {
 
     add<N extends S["name"]>(
         storeName: N,
-        key: string,
         value: Extract<S, { name: N }>["value"],
     ): Promise<Result<unknown>> {
-        return this.update(storeName, key, value);
+        return this.update(storeName, value);
     }
 
     update<N extends S["name"]>(
         storeName: N,
-        key: string,
         value: Extract<S, { name: N }>["value"],
     ): Promise<Result<unknown>> {
         return new Promise((resolve) => {
@@ -189,7 +187,7 @@ export class IndexedDBStorageLayer<S extends IDBStoreType> {
                 resolve({
                     ok: false,
                     err: new Error(
-                        `error updating value with key ${key} in store ${storeName}`,
+                        `error updating value ${value} in store ${storeName}`,
                     ),
                 });
             };

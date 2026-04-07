@@ -42,7 +42,7 @@ describe("IndexedDBStorageLayer", () => {
     });
 
     it("should add values to an objectstore", async () => {
-        const addResult = await idb.add("store-1", "id-0", {
+        const addResult = await idb.add("store-1", {
             id: "id-0",
             count: 0,
         });
@@ -51,7 +51,7 @@ describe("IndexedDBStorageLayer", () => {
     });
 
     it("should retrieve values from an objectstore", async () => {
-        const addResult = await idb.add("store-1", "id-0", {
+        const addResult = await idb.add("store-1", {
             id: "id-0",
             count: 0,
         });
@@ -71,7 +71,7 @@ describe("IndexedDBStorageLayer", () => {
     });
 
     it("should delete values from an objectstore", async () => {
-        const addResult = await idb.add("store-1", "id-0", {
+        const addResult = await idb.add("store-1", {
             id: "id-0",
             count: 0,
         });
