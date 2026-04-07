@@ -25,6 +25,14 @@ export class ElementBuilder<K extends keyof HTMLElementTagNameMap> {
         return this;
     }
 
+    addChild<K extends keyof HTMLElementTagNameMap>(
+        childBuilder: ElementBuilder<K>,
+    ) {
+        const child = childBuilder.build();
+        this._element.appendChild(child);
+        return this;
+    }
+
     build() {
         return this._element;
     }
