@@ -1,6 +1,6 @@
 {
   "name": "userscript-tools",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Userscript utilities.",
   "private": false,
   "main": "./dist/us-tools.mjs",
