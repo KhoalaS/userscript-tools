@@ -1,13 +1,4 @@
 import { ElementBuilder } from "./ElementBuilder";
-import {
-    type StateValue,
-    DOMAttributeState,
-    useDomAttributeState,
-} from "./DOMAttributeState";
+import { type StateValue, DOMAttributeState } from "./DOMAttributeState";
 
-export {
-    ElementBuilder,
-    type StateValue,
-    DOMAttributeState,
-    useDomAttributeState,
-};
+export { ElementBuilder, type StateValue, DOMAttributeState };

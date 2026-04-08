@@ -1,12 +1,6 @@
-export type StateValue = string | number | boolean;
+import { Widen } from "../misc";
 
-type Widen<T> = T extends string
-    ? string
-    : T extends number
-      ? number
-      : T extends boolean
-        ? boolean
-        : T;
+export type StateValue = string | number | boolean;
 
 type InternalState<T extends StateValue> = {
     rawValue: T;
@@ -46,26 +40,4 @@ export class DOMAttributeState<C = {}> {
     getState<N extends keyof C>(name: N): C[N] | undefined {
         return this.domState.get(name)?.rawValue as C[N] | undefined;
     }
-}
-
-export function useDomAttributeState<T extends StateValue>(
-    element: HTMLElement,
-    name: string,
-    initial: T,
-    onChange?: (newValue: T) => void,
-) {
-    const domState = new DOMAttributeState(element).addDOMState(
-        name,
-        initial,
-        onChange,
-    );
-
-    return {
-        setState: (newValue: T) => {
-            domState.setState(name, newValue as Widen<T>);
-        },
-        getState: () => {
-            return domState.getState(name);
-        },
-    };
 }
