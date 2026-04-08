@@ -1,57 +1,41 @@
 export type StateValue = string | number | boolean;
 
-export class DOMAttributeState {
-    private readonly domState: Map<
-        string,
-        {
-            rawValue: StateValue;
-        }
-    > = new Map();
+type InternalState<T extends StateValue> = {
+    rawValue: T;
+    _onChange?: (newValue: T) => void;
+};
+
+export class DOMAttributeState<C = {}> {
+    private readonly domState: Map<keyof C, InternalState<StateValue>> =
+        new Map();
 
     constructor(private readonly _element: HTMLElement) {}
 
-    addDOMState<T extends StateValue>(
-        name: string,
+    addDOMState<T extends StateValue, N extends string>(
+        name: N,
         initial: T,
         onChange?: (newValue: T) => void,
-    ) {
-        const proxy = new Proxy(
-            {
-                rawValue: initial,
-            },
-            {
-                set: (target, prop, newValue) => {
-                    this._element.setAttribute(name, String(newValue));
-                    onChange?.(newValue);
-                    return true;
-                },
-                get: () => {
-                    const attributeValue = this._element.getAttribute(name);
-                    if (typeof initial === "string") {
-                        return attributeValue;
-                    } else if (typeof initial === "number") {
-                        return Number(attributeValue);
-                    } else if (typeof initial === "boolean") {
-                        return attributeValue === "true";
-                    }
-                },
-            },
-        );
-        this.domState.set(name, proxy);
+    ): DOMAttributeState<C & { [K in N]: T }> {
+        this.domState.set(name as unknown as keyof C, {
+            rawValue: initial,
+            _onChange: onChange as (newValue: StateValue) => void,
+        });
         this._element.setAttribute(name, String(initial));
+        return this as DOMAttributeState<C & { [K in N]: T }>;
     }
 
-    setState<T extends StateValue>(name: string, value: T) {
+    setState<N extends keyof C>(name: N, value: C[N]) {
         const state = this.domState.get(name);
         if (state == null) {
             return;
         }
 
-        state.rawValue = value;
+        state.rawValue = value as StateValue;
+        state._onChange?.(state.rawValue);
     }
 
-    getState(name: string) {
-        return this.domState.get(name)?.rawValue;
+    getState<N extends keyof C>(name: N): C[N] | undefined {
+        return this.domState.get(name)?.rawValue as C[N] | undefined;
     }
 }
 
@@ -61,15 +45,18 @@ export function useDomAttributeState<T extends StateValue>(
     initial: T,
     onChange?: (newValue: T) => void,
 ) {
-    const domState = new DOMAttributeState(element);
-    domState.addDOMState(name, initial, onChange);
+    const domState = new DOMAttributeState(element).addDOMState(
+        name,
+        initial,
+        onChange,
+    );
 
     return {
         setState: (newValue: T) => {
             domState.setState(name, newValue);
         },
         getState: () => {
-            return domState.getState(name) as T | undefined;
+            return domState.getState(name);
         },
     };
 }
