@@ -1,3 +1,3 @@
-import { useDomAttributeState } from "./useDomAttributeState";
+import { useDomAttributeState } from './useDomAttributeState'
 
-export { useDomAttributeState };
+export { useDomAttributeState }

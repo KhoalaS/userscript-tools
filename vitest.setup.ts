@@ -1,3 +1,3 @@
-import indexeddb from 'fake-indexeddb';
+import indexeddb from 'fake-indexeddb'
 
-globalThis.window.indexedDB = indexeddb;
+globalThis.window.indexedDB = indexeddb

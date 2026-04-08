@@ -1,30 +1,32 @@
 {
   "name": "userscript-tools",
   "version": "1.0.9",
-  "description": "Userscript utilities.",
   "private": false,
-  "main": "./dist/us-tools.mjs",
-  "module": "./dist/us-tools.mjs",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "test": "vitest run",
-    "build": "vite build && tsc -p tsconfig.lib.json --emitDeclarationOnly true"
-  },
+  "description": "Userscript utilities.",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "files": [
     "dist",
     "src",
     "index.ts"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.30.1",
+  "main": "./dist/us-tools.mjs",
+  "module": "./dist/us-tools.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "vitest run",
+    "build": "vite build && tsc -p tsconfig.lib.json --emitDeclarationOnly true",
+    "format": "oxfmt"
+  },
   "devDependencies": {
     "@types/node": "^25.5.2",
     "fake-indexeddb": "^6.2.5",
     "happy-dom": "^20.8.9",
+    "oxfmt": "^0.44.0",
     "typescript": "^6.0.2",
     "vite": "^8.0.5",
     "vitest": "^4.1.2"
-  }
+  },
+  "packageManager": "pnpm@10.30.1"
 }
