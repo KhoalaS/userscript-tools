@@ -1,5 +1,13 @@
 export type StateValue = string | number | boolean;
 
+type Widen<T> = T extends string
+    ? string
+    : T extends number
+      ? number
+      : T extends boolean
+        ? boolean
+        : T;
+
 type InternalState<T extends StateValue> = {
     rawValue: T;
     _onChange?: (newValue: T) => void;
@@ -15,13 +23,13 @@ export class DOMAttributeState<C = {}> {
         name: N,
         initial: T,
         onChange?: (newValue: T) => void,
-    ): DOMAttributeState<C & { [K in N]: T }> {
+    ): DOMAttributeState<C & { [K in N]: Widen<T> }> {
         this.domState.set(name as unknown as keyof C, {
             rawValue: initial,
             _onChange: onChange as (newValue: StateValue) => void,
         });
         this._element.setAttribute(name, String(initial));
-        return this as DOMAttributeState<C & { [K in N]: T }>;
+        return this as DOMAttributeState<C & { [K in N]: Widen<T> }>;
     }
 
     setState<N extends keyof C>(name: N, value: C[N]) {
@@ -31,6 +39,7 @@ export class DOMAttributeState<C = {}> {
         }
 
         state.rawValue = value as StateValue;
+        this._element.setAttribute(name as string, String(value));
         state._onChange?.(state.rawValue);
     }
 
@@ -53,7 +62,7 @@ export function useDomAttributeState<T extends StateValue>(
 
     return {
         setState: (newValue: T) => {
-            domState.setState(name, newValue);
+            domState.setState(name, newValue as Widen<T>);
         },
         getState: () => {
             return domState.getState(name);
