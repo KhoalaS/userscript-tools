@@ -1,4 +1,4 @@
-import { describe, expect, Experimental, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { DOMAttributeState } from './DOMAttributeState'
 
 describe('DOMAttributeState', () => {

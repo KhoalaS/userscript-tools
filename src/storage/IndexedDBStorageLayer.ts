@@ -80,11 +80,11 @@ export class IndexedDBStorageLayer<S extends IDBStoreType> {
     return new Promise((resolve, reject) => {
       const databaseOpenRequest = this.window.indexedDB.open(this.databaseName, this.version)
 
-      databaseOpenRequest.onerror = (event) => {
+      databaseOpenRequest.onerror = () => {
         reject(new Error('error opening database'))
       }
 
-      databaseOpenRequest.onsuccess = (event) => {
+      databaseOpenRequest.onsuccess = () => {
         this.database = databaseOpenRequest.result
         console.log('success opening database')
         resolve(true)
@@ -98,7 +98,7 @@ export class IndexedDBStorageLayer<S extends IDBStoreType> {
 
         this.database = (event.target as EventTarget & { result: IDBDatabase }).result
 
-        this.database.onerror = (event) => {
+        this.database.onerror = () => {
           reject(new Error('error loading database'))
         }
 
