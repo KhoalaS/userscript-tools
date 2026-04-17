@@ -19,7 +19,7 @@ export type WaitOptions = {
 export async function waitForSelector(
   selector: string,
   options: WaitOptions = {
-    interval: 500,
+    interval: 100,
     timeout: 5000,
   },
 ) {
