@@ -1,5 +1,18 @@
 import { ElementBuilder } from './ElementBuilder'
 import { type StateValue, DOMAttributeState } from './DOMAttributeState'
-import { appendToExisting, replaceExisting } from './DOMManipulation'
+import {
+  appendToExisting,
+  replaceExisting,
+  waitForSelector,
+  type WaitOptions,
+} from './DOMManipulation'
 
-export { ElementBuilder, type StateValue, DOMAttributeState, appendToExisting, replaceExisting }
+export {
+  type StateValue,
+  type WaitOptions,
+  ElementBuilder,
+  waitForSelector,
+  DOMAttributeState,
+  appendToExisting,
+  replaceExisting,
+}
