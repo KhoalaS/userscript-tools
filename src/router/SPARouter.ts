@@ -2,21 +2,21 @@ export type BaseRoute = {
   prefix?: undefined
   regex?: undefined
   path: string
-  callback: (path: string) => void
+  handler: (path: string) => void
 }
 
 export type RegexRoute = {
   prefix?: undefined
   regex: true
   path: RegExp
-  callback: (path: string, ...matches: string[]) => void
+  handler: (path: string, ...matches: string[]) => void
 }
 
 export type PrefixRoute = {
   prefix: true
   regex?: undefined
   path: string
-  callback: (path: string) => void
+  handler: (path: string) => void
 }
 
 export type Route = BaseRoute | RegexRoute | PrefixRoute
@@ -41,16 +41,16 @@ export class SPARouter {
   private navigateHandler(path: string) {
     for (const route of this.routes.values()) {
       if (route.prefix && path.startsWith(route.path)) {
-        route.callback(path)
+        route.handler(path)
         continue
       } else if (route.regex) {
         const match = route.path.exec(path)
         if (match) {
-          route.callback(path, ...match)
+          route.handler(path, ...match)
           continue
         }
       } else if (route.path === path) {
-        route.callback(path)
+        route.handler(path)
         continue
       }
     }
