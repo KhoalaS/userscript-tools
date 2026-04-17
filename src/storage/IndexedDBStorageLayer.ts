@@ -198,4 +198,25 @@ export class IndexedDBStorageLayer<S extends IDBStoreType> {
       }
     })
   }
+
+  forEach<N extends S['name']>(
+    storeName: N,
+    callback: (value: Extract<S, { name: N }>['value']) => void,
+  ) {
+    const transaction = this.createTransaction(storeName, 'readonly')
+    const objectStore = transaction.objectStore(storeName)
+
+    const cursorRequest = objectStore.openCursor()
+    cursorRequest.onsuccess = (event: Event) => {
+      const cursor = (event.target as EventTarget & { result: IDBCursorWithValue | undefined })
+        .result
+      if (!cursor) return
+
+      callback(cursor.value)
+      cursor.continue()
+    }
+    cursorRequest.onerror = () => {
+      throw new Error()
+    }
+  }
 }
