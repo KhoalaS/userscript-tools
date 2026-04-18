@@ -10,8 +10,8 @@ export class ElementBuilder<K extends keyof HTMLElementTagNameMap> {
     return this
   }
 
-  addInnerText(content: string) {
-    this._element.innerText += content
+  addText(content: string) {
+    this._element.appendChild(new Text(content))
     return this
   }
 
