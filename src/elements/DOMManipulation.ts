@@ -25,20 +25,22 @@ export async function waitForSelector(
 ) {
   return new Promise<Element>((resolve, reject) => {
     let found = false
-    const handle = setInterval(() => {
-      const target = document.querySelector(selector)
-      if (target) {
-        found = true
-        clearInterval(handle)
-        resolve(target)
-        return
-      }
-    }, options.interval)
-    setTimeout(() => {
+    const timeoutHandler = setTimeout(() => {
       if (found) return
 
       clearInterval(handle)
       reject(new Error(`could not find element with selector "${selector}"`))
     }, options.timeout)
+
+    const handle = setInterval(() => {
+      const target = document.querySelector(selector)
+      if (target) {
+        found = true
+        clearInterval(handle)
+        clearTimeout(timeoutHandler)
+        resolve(target)
+        return
+      }
+    }, options.interval)
   })
 }
