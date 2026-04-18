@@ -216,7 +216,7 @@ export class IndexedDBStorageLayer<S extends IDBStoreType> {
       cursor.continue()
     }
     cursorRequest.onerror = () => {
-      throw new Error()
+      throw new Error(`error requesting cursor for store ${storeName}`)
     }
   }
 }
