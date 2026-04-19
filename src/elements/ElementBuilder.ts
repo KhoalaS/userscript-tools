@@ -31,6 +31,11 @@ export class ElementBuilder<K extends keyof HTMLElementTagNameMap> {
     return this
   }
 
+  addRandomId() {
+    this._element.id = crypto.randomUUID()
+    return this
+  }
+
   build() {
     return this._element
   }
