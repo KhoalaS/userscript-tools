@@ -1,8 +1,10 @@
 import { tryAsResult } from '../misc'
 
-export function appendToExisting(selector: string, child: Node) {
+export function appendToExisting(selector: string, ...children: Node[]) {
   const target = document.querySelector(selector)
-  target?.appendChild(child)
+  for (const child of children) {
+    target?.appendChild(child)
+  }
 }
 
 export function prependToExisting(selector: string, child: Node) {
