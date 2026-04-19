@@ -36,6 +36,15 @@ export class ElementBuilder<K extends keyof HTMLElementTagNameMap> {
     return this
   }
 
+  addEventListener<T extends keyof HTMLElementEventMap>(
+    type: T,
+    listener: (this: typeof this._element, event: HTMLElementEventMap[T]) => unknown,
+    options?: boolean | AddEventListenerOptions,
+  ) {
+    this._element.addEventListener(type, listener as EventListenerOrEventListenerObject, options)
+    return this
+  }
+
   build() {
     return this._element
   }
