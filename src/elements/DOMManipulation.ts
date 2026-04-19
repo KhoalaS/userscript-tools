@@ -1,3 +1,5 @@
+import { tryAsResult } from '../misc'
+
 export function appendToExisting(selector: string, child: Node) {
   const target = document.querySelector(selector)
   target?.appendChild(child)
@@ -19,6 +21,17 @@ export function replaceExisting(selector: string, newNode: Node) {
 export type WaitOptions = {
   interval: number
   timeout: number
+}
+
+export async function elementExists(selector: string) {
+  const result = await tryAsResult(() =>
+    waitForSelector(selector, {
+      interval: 50,
+      timeout: 500,
+    }),
+  )
+
+  return result.ok
 }
 
 export async function waitForSelector(

@@ -5,6 +5,7 @@ import {
   replaceExisting,
   waitForSelector,
   prependToExisting,
+  elementExists,
   type WaitOptions,
 } from './DOMManipulation'
 
@@ -19,5 +20,6 @@ export {
   appendToExisting,
   replaceExisting,
   prependToExisting,
+  elementExists,
   Dialog,
 }
