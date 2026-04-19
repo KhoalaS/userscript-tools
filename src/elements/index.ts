@@ -7,6 +7,8 @@ import {
   type WaitOptions,
 } from './DOMManipulation'
 
+import { Dialog } from './Dialog'
+
 export {
   type StateValue,
   type WaitOptions,
@@ -15,4 +17,5 @@ export {
   DOMAttributeState,
   appendToExisting,
   replaceExisting,
+  Dialog,
 }
