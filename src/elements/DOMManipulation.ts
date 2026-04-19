@@ -3,6 +3,11 @@ export function appendToExisting(selector: string, child: Node) {
   target?.appendChild(child)
 }
 
+export function prependToExisting(selector: string, child: Node) {
+  const target = document.querySelector(selector)
+  target?.prepend(child)
+}
+
 export function replaceExisting(selector: string, newNode: Node) {
   const old = document.querySelector(selector)
   const parent = old?.parentNode
