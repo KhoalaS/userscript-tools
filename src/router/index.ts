@@ -1,9 +1,9 @@
 import {
-  type BaseRoute,
+  type ExactRoute,
   type RegexRoute,
   type PrefixRoute,
   type Route,
   SPARouter,
 } from './SPARouter'
 
-export { type BaseRoute, type RegexRoute, type PrefixRoute, type Route, SPARouter }
+export { type ExactRoute, type RegexRoute, type PrefixRoute, type Route, SPARouter }

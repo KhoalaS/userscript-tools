@@ -1,25 +1,22 @@
-export type BaseRoute = {
-  prefix?: undefined
-  regex?: undefined
-  path: string
-  handler: (path: string) => void
-}
-
 export type RegexRoute = {
-  prefix?: undefined
-  regex: true
+  type: 'regex'
   path: RegExp
   handler: (path: string, ...matches: string[]) => void
 }
 
 export type PrefixRoute = {
-  prefix: true
-  regex?: undefined
+  type: 'prefix'
   path: string
   handler: (path: string) => void
 }
 
-export type Route = BaseRoute | RegexRoute | PrefixRoute
+export type ExactRoute = {
+  type: 'exact'
+  path: string
+  handler: (path: string) => void
+}
+
+export type Route = ExactRoute | RegexRoute | PrefixRoute
 
 export class SPARouter {
   private routes = new Set<Route>()
@@ -40,18 +37,25 @@ export class SPARouter {
 
   private navigateHandler(path: string) {
     for (const route of this.routes.values()) {
-      if (route.prefix && path.startsWith(route.path)) {
-        route.handler(path)
-        continue
-      } else if (route.regex) {
-        const match = route.path.exec(path)
-        if (match) {
-          route.handler(path, ...match)
-          continue
-        }
-      } else if (route.path === path) {
-        route.handler(path)
-        continue
+      switch (route.type) {
+        case 'prefix':
+          if (path.startsWith(route.path)) {
+            route.handler(path)
+          }
+          break
+        case 'regex':
+          const match = route.path.exec(path)
+          if (match) {
+            route.handler(path, ...match)
+          }
+          break
+        case 'exact':
+          if (route.path === path) {
+            route.handler(path)
+          }
+          break
+        default:
+          console.warn('Unknown route type', route)
       }
     }
   }
