@@ -4,11 +4,11 @@ export function appendToExisting(selector: string, child: Node) {
 }
 
 export function replaceExisting(selector: string, newNode: Node) {
-  const parent = document.querySelector(selector)?.parentElement
-  if (!parent) return
+  const old = document.querySelector(selector)
+  const parent = old?.parentNode
+  if (!old || !parent) return
 
-  parent.innerHTML = ''
-  parent.appendChild(newNode)
+  parent.replaceChild(newNode, old)
 }
 
 export type WaitOptions = {
