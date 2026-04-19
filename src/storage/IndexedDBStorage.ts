@@ -20,7 +20,7 @@ export type IDBStoreUpdate = {
   updateFunction: (transaction: IDBTransaction) => void
 }
 
-export class IndexedDBStorageLayer<S extends IDBStoreType> {
+export class IndexedDBStorage<S extends IDBStoreType> {
   private database: IDBDatabase | undefined
   private readonly stores: IDBStore<S>[] = []
 

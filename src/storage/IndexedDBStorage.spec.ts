@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { IndexedDBStorageLayer } from './IndexedDBStorageLayer'
+import { IndexedDBStorage } from './IndexedDBStorage'
 
 type Store = {
   name: 'store-1'
@@ -17,10 +17,10 @@ type Store2 = {
   }
 }
 
-describe('IndexedDBStorageLayer', () => {
-  let idb: IndexedDBStorageLayer<Store | Store2>
+describe('IndexedDBStorage', () => {
+  let idb: IndexedDBStorage<Store | Store2>
   beforeEach(async () => {
-    idb = new IndexedDBStorageLayer('vitest', window)
+    idb = new IndexedDBStorage('vitest', window)
     idb.addStore('store-1', {
       indices: [
         {

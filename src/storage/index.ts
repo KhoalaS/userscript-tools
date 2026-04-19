@@ -3,13 +3,13 @@ import {
   type IDBStore,
   type IDBStoreUpdate,
   type IDBStoreType,
-  IndexedDBStorageLayer,
-} from './IndexedDBStorageLayer'
+  IndexedDBStorage,
+} from './IndexedDBStorage'
 
 export {
   type StorageLayer,
   type IDBStore,
   type IDBStoreUpdate,
   type IDBStoreType,
-  IndexedDBStorageLayer,
+  IndexedDBStorage,
 }
