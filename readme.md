@@ -27,24 +27,34 @@ const button = new ElementBuilder("button")
 
 ### Router
 
-A router which can be used to react to URL changes. Supports matching with prefixes or regexes.
+A router which can be used to react to URL changes. Supports matching with prefixes, exact paths or regexes.
 
 ```ts
 const router = new SPARouter([
     {
-        regex: true,
+        type: "regex",
         path: /\/id\/(\d+)/g,
         handler: async (path, _, id) => {
             ...
         },
     },
     {
-        prefix: true,
+        type: "exact",
         path: "/foo",
         handler: () => {
             ...
         },
     },
+    {
+        type: "prefix",
+        path: "/bar",
+        handler: () => {
+            ...
+        },
+        leaveHandler: () => {
+            // cleanup code
+        }
+    }
 ]);
 
 // immediatly invoke the handlers for the current URL
@@ -68,10 +78,10 @@ Some websites use DOM attributes as state.
 
 ```ts
 const state = new DOMAttributeState(buttonElement)
-  .addDOMState('saved', true)
-  .addDOMState('lang', 'en')
+    .addDOMState("saved", true)
+    .addDOMState("lang", "en");
 
 // setter and getter are fully typed
-state.setState('lang', 'us')
-const isSaved = state.getState('saved')
+state.setState("lang", "us");
+const isSaved = state.getState("saved");
 ```
