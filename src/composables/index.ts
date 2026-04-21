@@ -1,3 +1,4 @@
 import { useDomAttributeState } from './useDomAttributeState'
+import { useStyleSheet } from './useStyleSheet'
 
-export { useDomAttributeState }
+export { useDomAttributeState, useStyleSheet }
