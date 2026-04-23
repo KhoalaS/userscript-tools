@@ -27,38 +27,37 @@ const button = new ElementBuilder("button")
 
 ### Router
 
-A router which can be used to react to URL changes. Supports matching with prefixes, exact paths or regexes.
+A route watcher which can be used to react to URL changes. Supports matching with prefixes, exact paths or regexes.
 
 ```ts
-const router = new SPARouter([
-    {
+const routeWatcher = new RouteWatcher()
+    .addRoute({
         type: "regex",
         path: /\/id\/(\d+)/g,
-        handler: async (path, _, id) => {
+        handler: async ({ path, matches }) => {
             ...
         },
-    },
-    {
+    })
+    .addRoute( {
         type: "exact",
         path: "/foo",
         handler: () => {
             ...
         },
-    },
-    {
+    })
+    .addRoute({
         type: "prefix",
         path: "/bar",
         handler: () => {
             ...
         },
-        leaveHandler: () => {
+        onLeave: () => {
             // cleanup code
         }
-    }
-]);
+    })
 
 // immediatly invoke the handlers for the current URL
-router.invokeHandlerOnCurrentUrl()
+routeWatcher.invokeHandlerOnCurrentUrl()
 ```
 
 ### DOM Manipulation
