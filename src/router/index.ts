@@ -3,7 +3,7 @@ import {
   type RegexRoute,
   type PrefixRoute,
   type Route,
-  SPARouter,
-} from './SPARouter'
+  RouteWatcher,
+} from './RouteWatcher'
 
-export { type ExactRoute, type RegexRoute, type PrefixRoute, type Route, SPARouter }
+export { type ExactRoute, type RegexRoute, type PrefixRoute, type Route, RouteWatcher }
